@@ -3,10 +3,11 @@ from abc import ABC, abstractmethod
 
 class Personaje(ABC): # La clase hereda de ABC para ser abstracta
     # Constructor
-    def __init__(self, nombre: str, nivel: int, vida: int):
+    def __init__(self, nombre: str, nivel: int, vida: int, tipo: str):
         self.nombre = nombre
         self.__nivel = nivel # Privado
         self.__vida = vida # Privado
+        self.__tipo = tipo
 
     @property # Esta es la parte de lectura de la propiedad
     def vida(self) -> int:
@@ -22,6 +23,14 @@ class Personaje(ABC): # La clase hereda de ABC para ser abstracta
     @property
     def esta_vivo(self) -> bool:
         return self.__vida > 0
+
+    @property
+    def nivel(self) -> int:
+        return self.__nivel
+
+    @property
+    def tipo(self) -> int:
+        return self.__tipo
 
     # Metodo abstracto, el cual tendra que ser implementado por cada clase hija
     @abstractmethod
