@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 class Personaje(ABC): # La clase hereda de ABC para ser abstracta
     # Constructor
     def __init__(self, nombre: str, nivel: int, vida: int, tipo: str):
+        self.id = None
         self.nombre = nombre
         self.__nivel = nivel # Privado
         self.__vida = vida # Privado
@@ -35,6 +36,11 @@ class Personaje(ABC): # La clase hereda de ABC para ser abstracta
     # Metodo abstracto, el cual tendra que ser implementado por cada clase hija
     @abstractmethod
     def calcular_danio(self) -> int:
+        pass
+
+    @property
+    @abstractmethod
+    def poder(self) -> int:
         pass
 
     def recibir_danio(self, cantidad: int) -> None:
