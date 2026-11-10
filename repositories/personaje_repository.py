@@ -15,6 +15,7 @@ class PersonajeRepository:
             personaje.nombre, personaje.tipo, personaje.nivel, 
             personaje.vida, personaje.poder
         ))
+        # Esto es necesario para materializar el insert
         self.__conexion.commit()
         personaje.id = cursor.lastrowid # nos trae el id del registro creado
         return personaje.id
