@@ -1,5 +1,6 @@
 import sqlite3
 from models.personaje import Personaje
+from models.guerrero import Guerrero
 
 # El repositorio es una representacion de la tabla en la aplicacion.
 class PersonajeRepository:
@@ -25,4 +26,16 @@ class PersonajeRepository:
             return -1
 
 
+    def obtener_por_id(self, id: int):
+        fila = self.__conexion.execute("""
+            SELECT id, nombre, tipo, nivel, vida, poder
+            FROM personajes
+            WHERE id = ?
+            """, (id,)).fetchone()
+        tipo = fila[2]
+        if tipo == "Guerrero":
+            return Guerrero(fila[1], fila[3], fila[4], fila[5], "Guerrero")
+        return None
 
+    def editar():
+        pass

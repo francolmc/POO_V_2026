@@ -26,6 +26,12 @@ try:
 
     crear_tablas(conexion)
 
+    p_repositorio = PersonajeRepository(conexion)
+    personaje1 = p_repositorio.obtener_por_id(1)
+
+    print(personaje1.nombre)
+
+    """
     nombre = input("Ingrese el nombre del personaje: ")
     while True:
         try:
@@ -45,6 +51,7 @@ try:
         print("Error al crear el personaje.")
     else:
         print(f"{thor.nombre} fue creado con el id: {id_personaje}")
+    """
 except Exception as e:
     print(f"Ocurrió un error: {e}")
 finally:
