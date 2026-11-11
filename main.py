@@ -21,17 +21,31 @@ from database.conexion import obtener_conexion, crear_tablas
 from models.guerrero import Guerrero
 from repositories.personaje_repository import PersonajeRepository
 
-conexion = obtener_conexion()
+try:
+    conexion = obtener_conexion()
 
-crear_tablas(conexion)
+    crear_tablas(conexion)
 
-thor = Guerrero("Thor", 6, 100, 60, "Guerrero")
+    nombre = input("Ingrese el nombre del personaje: ")
+    while True:
+        try:
+            nivel = int(input("Ingrese el nivel del personaje: "))
+            break
+        except ValueError:
+            print("Solo puede ingresar numeros para el nivel.")
 
-print(f"Soy: {thor.nombre}")
+    thor = Guerrero(nombre, nivel, 100, 60, "Guerrero")
 
-p_repositorio = PersonajeRepository(conexion)
-id_personaje = p_repositorio.crear(thor)
+    print(f"Soy: {thor.nombre}")
 
-print(f"Thor fue creado con el id: {id_personaje}")
+    p_repositorio = PersonajeRepository(conexion)
+    id_personaje = p_repositorio.crear(thor)
 
-conexion.close()
+    if id_personaje == -1:
+        print("Error al crear el personaje.")
+    else:
+        print(f"{thor.nombre} fue creado con el id: {id_personaje}")
+except Exception as e:
+    print(f"Ocurrió un error: {e}")
+finally:
+    conexion.close()

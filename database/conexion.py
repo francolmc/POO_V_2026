@@ -17,3 +17,6 @@ def crear_tablas(conexion: sqlite3.Connection):
         poder INTEGER NOT NULL
     )
     """)
+    conexion.execute("""
+    CREATE UNIQUE INDEX IF NOT EXISTS idx_nombre ON personajes(nombre)
+    """)

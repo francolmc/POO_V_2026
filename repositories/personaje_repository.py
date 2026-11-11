@@ -7,18 +7,22 @@ class PersonajeRepository:
         self.__conexion = conexion
 
     def crear(self, personaje: Personaje) -> int:
-        cursor = self.__conexion.execute("""
-            INSERT INTO personajes 
-            (nombre, tipo, nivel, vida, poder) 
-            VALUES (?, ?, ?, ?, ?)
-        """, (
-            personaje.nombre, personaje.tipo, personaje.nivel, 
-            personaje.vida, personaje.poder
-        ))
-        # Esto es necesario para materializar el insert
-        self.__conexion.commit()
-        personaje.id = cursor.lastrowid # nos trae el id del registro creado
-        return personaje.id
+        try:
+            cursor = self.__conexion.execute("""
+                INSERT INTO personajes 
+                (nombre, tipo, nivel, vida, poder) 
+                VALUES (?, ?, ?, ?, ?)
+            """, (
+                personaje.nombre, personaje.tipo, personaje.nivel, 
+                personaje.vida, personaje.poder
+            ))
+            # Esto es necesario para materializar el insert
+            self.__conexion.commit()
+            personaje.id = cursor.lastrowid # nos trae el id del registro creado
+            return personaje.id
+        except sqlite3.IntegrityError:
+            print("Error al crear el personaje en la base de datos.")
+            return -1
 
 
 
